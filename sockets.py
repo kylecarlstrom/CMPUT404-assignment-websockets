@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 import flask
-from flask import Flask, request
+from flask import Flask, request, redirect
 from flask_sockets import Sockets
 import gevent
 from gevent import queue
@@ -25,6 +25,20 @@ import os
 app = Flask(__name__)
 sockets = Sockets(app)
 app.debug = True
+
+# https://github.com/abramhindle/WebSocketsExamples/blob/master/chat.py Abram Hindle (https://github.com/abramhindle) (Apache 2.0)
+class Client:
+    def __init__(self):
+        self.queue = queue.Queue()
+
+    def put(self, entity, data):
+        value = {}
+        value[entity] = data
+        self.queue.put_nowait(json.dumps(value))
+
+    def get(self):
+        return self.queue.get()
+# End Citation https://github.com/abramhindle/WebSocketsExamples/blob/master/chat.py Abram Hindle (https://github.com/abramhindle) (Apache 2.0)
 
 class World:
     def __init__(self):
@@ -59,29 +73,52 @@ class World:
     def world(self):
         return self.space
 
-myWorld = World()        
-
-def set_listener( entity, data ):
-    ''' do something with the update ! '''
-
-myWorld.add_set_listener( set_listener )
+myWorld = World()
         
 @app.route('/')
 def hello():
     '''Return something coherent here.. perhaps redirect to /static/index.html '''
-    return None
+    # https://github.com/abramhindle/WebSocketsExamples/blob/master/chat.py Abram Hindle (https://github.com/abramhindle) (Apache 2.0)
+    return redirect("/static/index.html")
 
 def read_ws(ws,client):
     '''A greenlet function that reads from the websocket and updates the world'''
-    # XXX: TODO IMPLEMENT ME
-    return None
+    # https://github.com/abramhindle/WebSocketsExamples/blob/master/chat.py Abram Hindle (https://github.com/abramhindle) (Apache 2.0)
+    try:
+        while True:
+            msg = ws.receive()
+            print "WS RECV: %s" % msg
+            if (msg is not None):
+                packet = json.loads(msg)
+                for entity, data in packet.items():
+                    myWorld.set(entity, data)
+            else:
+                print("broke")
+                break
+    except Exception as e:
+        '''Done'''
+        print("OH NOES", e)
+    # End Citation https://github.com/abramhindle/WebSocketsExamples/blob/master/chat.py Abram Hindle (https://github.com/abramhindle) (Apache 2.0)
 
 @sockets.route('/subscribe')
 def subscribe_socket(ws):
     '''Fufill the websocket URL of /subscribe, every update notify the
        websocket and read updates from the websocket '''
-    # XXX: TODO IMPLEMENT ME
-    return None
+    # https://github.com/abramhindle/WebSocketsExamples/blob/master/chat.py Abram Hindle (https://github.com/abramhindle) (Apache 2.0)
+    client = Client()
+    myWorld.add_set_listener(client.put)
+    g = gevent.spawn( read_ws, ws, client )    
+    try:
+        while True:
+            # block here
+            msg = client.get()
+            ws.send(msg)
+    except Exception as e:# WebSocketError as e:
+        print "WS Error %s" % e
+    finally:
+        print('killed')
+        gevent.kill(g)
+    # End Citation https://github.com/abramhindle/WebSocketsExamples/blob/master/chat.py Abram Hindle (https://github.com/abramhindle) (Apache 2.0)
 
 
 def flask_post_json():

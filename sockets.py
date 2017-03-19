@@ -87,17 +87,15 @@ def read_ws(ws,client):
     try:
         while True:
             msg = ws.receive()
-            print "WS RECV: %s" % msg
             if (msg is not None):
                 packet = json.loads(msg)
                 for entity, data in packet.items():
                     myWorld.set(entity, data)
             else:
-                print("broke")
                 break
     except Exception as e:
         '''Done'''
-        print("OH NOES", e)
+        print(e)
     # End Citation https://github.com/abramhindle/WebSocketsExamples/blob/master/chat.py Abram Hindle (https://github.com/abramhindle) (Apache 2.0)
 
 @sockets.route('/subscribe')
@@ -116,7 +114,6 @@ def subscribe_socket(ws):
     except Exception as e:# WebSocketError as e:
         print "WS Error %s" % e
     finally:
-        print('killed')
         gevent.kill(g)
     # End Citation https://github.com/abramhindle/WebSocketsExamples/blob/master/chat.py Abram Hindle (https://github.com/abramhindle) (Apache 2.0)
 
@@ -131,26 +128,30 @@ def flask_post_json():
     else:
         return json.loads(request.form.keys()[0])
 
+# From assignment 4, https://github.com/kylecarlstrom/CMPUT404-assignment-ajax
 @app.route("/entity/<entity>", methods=['POST','PUT'])
 def update(entity):
     '''update the entities via this interface'''
-    return None
+    data = flask_post_json()
+    myWorld.set(entity, data)
+    return json.dumps(myWorld.get(entity))
 
 @app.route("/world", methods=['POST','GET'])    
 def world():
     '''you should probably return the world here'''
-    return None
+    return json.dumps(myWorld.world())
 
 @app.route("/entity/<entity>")    
 def get_entity(entity):
     '''This is the GET version of the entity interface, return a representation of the entity'''
-    return None
+    return json.dumps(myWorld.get(entity))
 
 
 @app.route("/clear", methods=['POST','GET'])
 def clear():
     '''Clear the world out!'''
-    return None
+    myWorld.clear()
+    return json.dumps(myWorld.world())
 
 
 

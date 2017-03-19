@@ -19,7 +19,7 @@ pip install gunicorn
 Contributors / Licensing
 ========================
 
-Generally everything is LICENSE'D under the Apache 2 license by Abram Hindle.
+Generally everything is LICENSE'D under the Apache 2 license by Abram Hindle and Kyle Carlstrom
 
 sockets.py uses code from https://github.com/abramhindle/WebSocketsExamples/blob/master/chat.py Abram Hindle (https://github.com/abramhindle) (Apache 2.0)
 
@@ -59,3 +59,4 @@ Contributors
 
 * Mark Galloway
 * Abram Hindle
+* Kyle Carlstrom

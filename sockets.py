@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
-# Copyright (c) 2013-2014 Abram Hindle, Kyle Carlstrom
+# Copyright (c) 2013-2014 Abram Hindle, Kyle Carlstrom, Tian Zhi Wang
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -130,7 +130,7 @@ def flask_post_json():
     else:
         return json.loads(request.form.keys()[0])
 
-# Start citation: From assignment 4, https://github.com/kylecarlstrom/CMPUT404-assignment-ajax
+# Start citation: From assignment 4, https://github.com/kylecarlstrom/CMPUT404-assignment-ajax Abram Hindle, Kyle Carlstrom and Tian Zhi Wang
 @app.route("/entity/<entity>", methods=['POST','PUT'])
 def update(entity):
     '''update the entities via this interface'''
@@ -154,7 +154,7 @@ def clear():
     '''Clear the world out!'''
     myWorld.clear()
     return json.dumps(myWorld.world())
-# End citation: From assignment 4, https://github.com/kylecarlstrom/CMPUT404-assignment-ajax
+# End citation: From assignment 4, https://github.com/kylecarlstrom/CMPUT404-assignment-ajax Abram Hindle, Kyle Carlstrom and Tian Zhi Wang
 
 
 if __name__ == "__main__":

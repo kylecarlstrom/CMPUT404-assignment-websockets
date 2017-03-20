@@ -107,6 +107,8 @@ def subscribe_socket(ws):
     myWorld.add_set_listener(client.put)
     g = gevent.spawn( read_ws, ws, client )    
     try:
+        stateOfWorld = json.dumps(myWorld.world())
+        ws.send(stateOfWorld)
         while True:
             # block here
             msg = client.get()

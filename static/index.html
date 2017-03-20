@@ -276,7 +276,7 @@ function wsSetup() {
     };
     socket.onmessage = function(msg) {  
         try {
-            debug("WebSocket Recv:" + msg.data);
+            // debug("WebSocket Recv:" + msg.data);
             obj = JSON.parse(msg.data);
             for (key in obj) {
                 updateEntity(key, obj[key]);

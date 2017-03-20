@@ -21,6 +21,8 @@ Contributors / Licensing
 
 Generally everything is LICENSE'D under the Apache 2 license by Abram Hindle and Kyle Carlstrom
 
+static/index.html also contains some code from assignment 4, https://github.com/kylecarlstrom/CMPUT404-assignment-ajax Tian Zhi Wang and Kyle Carlstrom (Apache 2.0)
+
 sockets.py uses code from https://github.com/abramhindle/WebSocketsExamples/blob/master/chat.py Abram Hindle (https://github.com/abramhindle) (Apache 2.0)
 
 freetests.py is LICENSE'D under a BSD-like license:

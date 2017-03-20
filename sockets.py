@@ -83,7 +83,7 @@ def hello():
 
 def read_ws(ws,client):
     '''A greenlet function that reads from the websocket and updates the world'''
-    # https://github.com/abramhindle/WebSocketsExamples/blob/master/chat.py Abram Hindle (https://github.com/abramhindle) (Apache 2.0)
+    # Start Citation: https://github.com/abramhindle/WebSocketsExamples/blob/master/chat.py Abram Hindle (https://github.com/abramhindle) (Apache 2.0)
     try:
         while True:
             msg = ws.receive()
@@ -102,7 +102,7 @@ def read_ws(ws,client):
 def subscribe_socket(ws):
     '''Fufill the websocket URL of /subscribe, every update notify the
        websocket and read updates from the websocket '''
-    # https://github.com/abramhindle/WebSocketsExamples/blob/master/chat.py Abram Hindle (https://github.com/abramhindle) (Apache 2.0)
+    # Start Citation: https://github.com/abramhindle/WebSocketsExamples/blob/master/chat.py Abram Hindle (https://github.com/abramhindle) (Apache 2.0)
     client = Client()
     myWorld.add_set_listener(client.put)
     g = gevent.spawn( read_ws, ws, client )    
@@ -128,7 +128,7 @@ def flask_post_json():
     else:
         return json.loads(request.form.keys()[0])
 
-# From assignment 4, https://github.com/kylecarlstrom/CMPUT404-assignment-ajax
+# Start citation: From assignment 4, https://github.com/kylecarlstrom/CMPUT404-assignment-ajax
 @app.route("/entity/<entity>", methods=['POST','PUT'])
 def update(entity):
     '''update the entities via this interface'''
@@ -152,7 +152,7 @@ def clear():
     '''Clear the world out!'''
     myWorld.clear()
     return json.dumps(myWorld.world())
-
+# End citation: From assignment 4, https://github.com/kylecarlstrom/CMPUT404-assignment-ajax
 
 
 if __name__ == "__main__":

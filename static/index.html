@@ -6,7 +6,7 @@
     <meta content='width=device-width; height=device-height; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;' name='viewport' />
     <meta name="viewport" content="width=device-width" />
     <meta name="license" content="
-        Copyright 2013 Google, Abram Hindle, Kyle Carlstrom
+        Copyright 2013 Google, Abram Hindle, Kyle Carlstrom, Tian Zhi Wang
         
         Licensed under the Apache License, Version 2.0 (the "License");
         you may not use this file except in compliance with the License.
@@ -56,6 +56,7 @@ function drawCircle(context,entity) {
         strokeStyle = fillStyle;
         arc(x, y, (entity["radius"])?entity["radius"]:50, 0, 2.0 * Math.PI, false);  
         stroke();
+        // From assignment 4, https://github.com/kylecarlstrom/CMPUT404-assignment-ajax Tian Zhi Wang and Kyle Carlstrom (Apache 2.0)
         fill();
     }
 }
@@ -234,7 +235,7 @@ mouse = (function() {
     return self;
 })();
 
-// From assignment 4, https://github.com/kylecarlstrom/CMPUT404-assignment-ajax
+// Start Citation: From assignment 4, https://github.com/kylecarlstrom/CMPUT404-assignment-ajax Tian Zhi Wang and Kyle Carlstrom (Apache 2.0)
 function getRandomColor() {
     function getRandom255() {
         return Math.floor(Math.random() * 255);
@@ -244,7 +245,6 @@ function getRandomColor() {
 }
 
 // Add the application specific mouse listeners!
-//XXX: TODO Make these prettier!
 mouse.mousedowners.push(function(x,y,clicked,e) {
     addEntityWithoutName({'x':x,'y':y,'colour': getRandomColor()});
 });
@@ -257,6 +257,7 @@ mouse.mousedraggers.push(function(x,y,clicked,e) {
     addEntityWithoutName({'x':x,'y':y,'colour': getRandomColor(),
                           'radius':10});
 });
+// End citation from assignment 4, https://github.com/kylecarlstrom/CMPUT404-assignment-ajax Tian Zhi Wang and Kyle Carlstrom (Apache 2.0)
 
 
 function update() {
